@@ -1,4 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
 from typing import Dict, List, Optional
 
 import cv2
@@ -12,6 +13,9 @@ from mmengine.visualization import Visualizer
 from mmseg.registry import VISUALIZERS
 from mmseg.structures import SegDataSample
 from mmseg.utils import get_classes, get_palette
+from torchvision import transforms
+
+import matplotlib.pyplot as plt
 
 
 @VISUALIZERS.register_module()
@@ -126,16 +130,25 @@ class SegLocalVisualizer(Visualizer):
             np.ndarray: the drawn image which channel is RGB.
         """
         num_classes = len(classes)
-
+        #print(f"sem_seg: {sem_seg.shape}\n")
         sem_seg = sem_seg.cpu().data
+        #print(f"sem_seg: {sem_seg.shape}\n")
+        
         ids = np.unique(sem_seg)[::-1]
         legal_indices = ids < num_classes
         ids = ids[legal_indices]
         labels = np.array(ids, dtype=np.int64)
 
         colors = [palette[label] for label in labels]
-
+        
+        #image = np.zeros((sem_seg.shape[1], sem_seg.shape[2], 3), dtype=np.uint8)
         mask = np.zeros_like(image, dtype=np.uint8)
+        
+        #transform = transforms.Resize((mask.shape[0], mask.shape[1]))
+        #sem_seg = transform(sem_seg)
+        print(f"After: mask: {mask.shape} \n sem_seg: {sem_seg.shape} \n")
+        
+        
         for label, color in zip(labels, colors):
             mask[sem_seg[0] == label, :] = color
 
@@ -347,3 +360,5 @@ class SegLocalVisualizer(Visualizer):
             mmcv.imwrite(mmcv.rgb2bgr(drawn_img), out_file)
         else:
             self.add_image(name, drawn_img, step)
+
+# %%

@@ -78,6 +78,7 @@ class MMSegInferencer(BaseInferencer):
         self.num_visualized_imgs = 0
         self.num_pred_imgs = 0
         init_default_scope(scope if scope else 'mmseg')
+        
         super().__init__(
             model=model, weights=weights, device=device, scope=scope)
 
@@ -100,6 +101,8 @@ class MMSegInferencer(BaseInferencer):
             checkpoint (dict, optional): The loaded checkpoint.
             cfg (Config or ConfigDict, optional): The loaded config.
         """
+        
+        print("load from mmseg_inference.py")
 
         if checkpoint is not None:
             _load_checkpoint_to_model(model, checkpoint)
@@ -183,7 +186,7 @@ class MMSegInferencer(BaseInferencer):
         else:
             pred_out_dir = ''
             img_out_dir = ''
-
+        
         return super().__call__(
             inputs=inputs,
             return_datasamples=return_datasamples,

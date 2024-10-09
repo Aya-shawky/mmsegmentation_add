@@ -12,7 +12,6 @@ from .decathlon import DecathlonDataset
 from .drive import DRIVEDataset
 from .dsdl import DSDLSegDataset
 from .hrf import HRFDataset
-from .hsi_drive import HSIDrive20Dataset
 from .isaid import iSAIDDataset
 from .isprs import ISPRSDataset
 from .levir import LEVIRCDDataset
@@ -61,5 +60,5 @@ __all__ = [
     'MapillaryDataset_v2', 'Albu', 'LEVIRCDDataset',
     'LoadMultipleRSImageFromFile', 'LoadSingleRSImageFromFile',
     'ConcatCDInput', 'BaseCDDataset', 'DSDLSegDataset', 'BDD100KDataset',
-    'NYUDataset', 'HSIDrive20Dataset'
+    'NYUDataset'
 ]
