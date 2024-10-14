@@ -144,8 +144,8 @@ class SegLocalVisualizer(Visualizer):
         #image = np.zeros((sem_seg.shape[1], sem_seg.shape[2], 3), dtype=np.uint8)
         mask = np.zeros_like(image, dtype=np.uint8)
         
-        #transform = transforms.Resize((mask.shape[0], mask.shape[1]))
-        #sem_seg = transform(sem_seg)
+        transform = transforms.Resize((mask.shape[0], mask.shape[1]))
+        sem_seg = transform(sem_seg)
         print(f"After: mask: {mask.shape} \n sem_seg: {sem_seg.shape} \n")
         
         
